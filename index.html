@@ -6,61 +6,43 @@
      	<!-- Bootstrap CDN -->
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 	    <!-- Stylesheet -->
-	    <link href="../style.css" rel="stylesheet"> <!-- /!\Ecrase BootStrap -->
-		<title>JustStreamIt</title>
+		<link href="css/style.css" rel="stylesheet"> <!-- /!\ Ecrase BootStrap -->
+		<title>JustStreamIt - Vidéo à la demande.</title>
 	</head>
 
 	<body>
-		<header>  <!--	Ajout du bandeau 	-->
-			<h1>JustStreamIt</h1>
-		</header>
-		
-		<section>  <!--	Ajout d'une section par catégorie de films	-->
-			<h2>Meilleur film</h2>
-		</section>
-		
-		<section>
-			<h2>Films les mieux notés</h2>
-		</section>
-
-		<section>
-			<h2>Mystery</h2>
-		</section>
-		
-		<section>
-			<h2>Catégorie 2</h2>
-		</section>
-		
-		<section>
-			<h2>Autres : </h2>
-			<ol>
-				<li>Films d'action</li>
-				<li>Comédies</li>
-				<li>Famille</li>
-				<li>Films de fantasy</li>
-				<li>Films d'horreur</li>
-				<li>Science-fiction</li>
-				<li>Westerns</li>
-			</ol>
-		</section>
-
-		<section>
-			<h2>Autres : </h2>
-			<div class="container">
-			<!-- Dropdown de base Bootstrap -->
-				<div class="dropdown">
-				  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-					Autres :
-				  </button>
-				  <ul class="dropdown-menu">
-					<li><a class="dropdown-item" href="#">Action</a></li>
-					<li><a class="dropdown-item" href="#">Autre action</a></li>
-					<li><a class="dropdown-item" href="#">Quelque chose d'autre</a></li>
-				  </ul>
+		<main class="container gx-0 border">
+			<section class="border border-1 border-dark p-4" style="background-color: #61787F; height: 122px;">
+				<div class="d-flex flex-column flex-sm-row align-items-center">
+					<img src="./assets/logo.png" alt="logo JustStreamIt"
+						 class="img-fluid"
+						 style="height: 94px; width: 127px;">
+					<h1 class="ms-sm-3 mb-0 text-light d-none d-sm-block">Vidéos à la demande</h1>
 				</div>
-			</div>
-		</section>
-			
+			</section>
+
+			<section>
+				<h2 class="border" >Meilleur film</h2>
+				<div class="">
+					<p>lorem ipsum</p>
+				</div>
+			</section>
+
+			<section class="border">
+				<h2 class="border">Film les mieux notés</h2>
+				<div class="">
+					<p>lorem ipsum</p>
+				</div>
+			</section>
+
+			<section class="border">
+				<h2 class="border">Categorie: Mystery</h2>
+				<div class="">
+					<p>lorem ipsum</p>
+				</div>
+			</section>
+
+		</main>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 	</body>
 </html>
