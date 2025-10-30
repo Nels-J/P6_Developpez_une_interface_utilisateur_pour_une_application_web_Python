@@ -10,201 +10,37 @@
 		<title>JustStreamIt - Vidéo à la demande.</title>
 	</head>
 
-	<body>
-		<main class="container gx-0 border"> <!-- Centrer du contenu sur toute la page -->
-
-			<!-- Section correspondant à l'entête de la page. -->
-			<section class="border border-1 border-dark p-4" style="background-color: #61787F; height: 122px;">
-				<div class="d-flex flex-column flex-sm-row align-items-center h-100">
-					<img src="./assets/logo.png" alt="logo JustStreamIt"
-						 class="img-fluid h-auto"
+	<body class="container-fluid px-4">
+		<main class="container">
+			<!-- Section - Bannière de la page. -->
+			<section class="border border-dark p-4" style="background-color: #61787F; height: 122px;">
+				<div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-content-sm-start h-100">
+					<img src="./assets/logo.png"
+						 alt="logo JustStreamIt"
+						 class="mx-auto mx-sm-0"
 						 style="height: 94px; width: 127px;">
-					<h1 class="text-light ms-sm-3 mb-0 d-none d-sm-block">Vidéos à la demande</h1>
+					<h1 class="text-light ms-sm-4 mb-0 d-none d-sm-block">Vidéos à la demande</h1>
 				</div>
 			</section>
 
-			<!-- Section correspondant au contenu du meilleur film en base -->
-			<section>
-				<h2 class="text-center text-sm-start">Meilleur film</h2>
-				<div class="border border-4 border-dark p-3 mb-4">
-					<img src="https://placehold.co/800" alt="affiche du film"
-						 class="img-fluid mb-3" id="best-movie-poster">
-					<h3 id="best-movie-title">TITRE</h3>
-					<p id="best-movie-description">DESC</p>
-					<button class="btn btn-danger mb-3">Détails</button>
-				</div>
-			</section>
+			<!-- Section - Meilleur film en base via API-->
+			<section class="best-film"></section>
 
-			<!-- Section correspondant aux films les mieux notés (galerie) -->
-			<section>
-				<h2 class="text-center text-sm-start">Film les mieux notés</h2>
-				<div class="row g-4">
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/600x800" alt="Image 1">
+            <section class="row film-category" >
+                <div class="col-md-6" id="mistery"></div>
+            </section>
 
-						</div>
-					</div>
-		  			<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 2">
-						</div>
-				  	</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/200" alt="Image 3">
-						</div>
-			  		</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-					  	<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/800" alt="Image 4">
-					  	</div>
-				  	</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-					  	<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 5">
-					  	</div>
-				  	</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-					  	<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 6">
-					  	</div>
-				  	</div>
-    			</div>
-			</section>
+			<section class="row film-category" >
+                <div class="col-md-6" id="thriller"></div>
+            </section>
 
-			<!-- Section correspondant à la catégorie Mystery -->
-			<section>
-				<h2 class="text-center text-sm-start">Categorie: Mystery</h2>
-				<div class="row g-4">
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/600x800" alt="Image 1">
+            <section class="row film-category" >
+                <div class="col-md-6" id="action"></div>
+            </section>
 
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 2">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/200" alt="Image 3">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/800" alt="Image 4">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 5">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 6">
-						</div>
-					</div>
-				</div>
-			</section>
-
-			<!-- Section correspondant à une seconde catégorie de films -->
-			<section>
-				<h2 class="text-center text-sm-start">Categorie 2</h2>
-				<div class="row g-4">
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/600x800" alt="Image 1">
-
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 2">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/200" alt="Image 3">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/800" alt="Image 4">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 5">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 6">
-						</div>
-					</div>
-				</div>
-				<img src="assets/logo.png" alt="logo JustStreamIt"
-				 	class="img-fluid h-auto"
-				 	style="height: 94px; width: 127px;"
-				>
-			</section>
-
-			<!-- Section correspondant à une catégorie selon menu déroulant -->
-			<section>
-				<h2 class="text-center text-sm-start">Autres :</h2>
-				<div class="mb-3">
-					<label for="categories-select" class="form-label visually-hidden">Catégories</label>
-					<select id="categories-select" class="form-select rounded-0 btn-outline-secondary" aria-label="Sélection des catégories">
-						<option value="">Catégories</option>
-						<option value="action">Film d'action</option>
-						<option value="comedie">Comédies</option>
-						<option value="famille">Famille</option>
-						<option value="fantasy">Films de fantasy</option>
-						<option value="scifi">Science-fiction</option>
-						<option value="westerns">Westerns</option>
-					</select>
-				</div>
-				<div class="row g-4">
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/600x800" alt="Image 1">
-
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 2">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/200" alt="Image 3">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/800" alt="Image 4">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 5">
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 6">
-						</div>
-					</div>
-				</div>
-			</section>
+			<div class="modal hidden" id="filmModal"></div>
 
 		</main>
-
 		<!-- Bootstrap avec Popper pour gérer dropdown et popover -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
 				integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
@@ -213,6 +49,5 @@
 
 		<!-- Inclusion du script externe -->
 		<script src="js/main.js"></script>
-
 	</body>
 </html>

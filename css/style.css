@@ -4,3 +4,14 @@
 body {
   font-family: 'Oswald', sans-serif;
 }
+
+.img-max-height {
+  max-height: 241px;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .img-max-height {
+    max-height: 336px;
+  }
+}
