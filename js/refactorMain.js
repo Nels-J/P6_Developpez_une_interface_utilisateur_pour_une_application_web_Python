@@ -46,27 +46,19 @@ async function getBestMovie() {
   return movieData;
 }
 
-// OK - récupère le json des 6 meilleurs films toutte catégories.
+// OK - récupère le json des 6 meilleurs films toute catégories.
 async function getTopMovies(limit) {
-  if (!limit) limit = MAX_DISPLAY;
+  limit++ // pour éviter d'avoir le meilleur film dans la liste
   const endpoint = `/titles/?sort_by=-imdb_score,-votes&page_size=${limit}`;
   const data = await fetchJson(endpoint);
-  if (!data) return [];
-  if (Array.isArray(data)) return data;
-  if (data.results && Array.isArray(data.results)) return data.results;
-  return [];
+  return data.results.slice(1, limit);
 }
 
 // OK - 6 meilleurs films d'une catégorie.
 async function getTopMoviesByCategory(category, limit) {
-  if (!category) return [];
-  if (!limit) limit = MAX_DISPLAY;
   const endpoint = `/titles/?genre=${category}&sort_by=-imdb_score,-votes&page_size=${limit}`;
   const data = await fetchJson(endpoint);
-  if (!data) return [];
-  if (Array.isArray(data)) return data;
-  if (data.results && Array.isArray(data.results)) return data.results;
-  return [];
+  return data.results;
 }
 
 // OK - ajout de l'ID au endpoint titles/ pour obtenir + de détails
@@ -76,7 +68,6 @@ async function getMovieDetails(movieId) {
   return movieData;
 }
 
-
 // Crée un élément image ou un placeholder si l'URL est vide (Copilot l'a fait pour moi à revoir + tard)
 function createImageHtml(src, alt, cssClasses) {
   if (src) {
@@ -85,7 +76,7 @@ function createImageHtml(src, alt, cssClasses) {
     img.alt = alt || '';
     img.className = cssClasses || '';
     img.style.objectFit = 'cover';
-    img.onerror = function () { this.style.display = 'none'; }; // j'ai l'impression que ce n'est pas très propre
+    img.onerror = function () { this.src = 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Placeholder_male_superhero_c.png'; }; // j'ai l'impression que ce n'est pas très propre
     return img;
   }
   const placeholder = document.createElement('div');
@@ -152,6 +143,10 @@ function createCard(movie) {
   const imgContainer = document.createElement('div');
   imgContainer.className = 'd-flex justify-content-center pt-2';
   const img = createImageHtml(movie.image_url || '', movie.title || '', 'img-max-height');
+  // img.onerror(() => {
+  //  img.src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Placeholder_male_superhero_c.png";
+  // });
+
   imgContainer.appendChild(img);
 
   const body = document.createElement('div');
@@ -237,7 +232,7 @@ function renderCategorySection(targetElement, titleText, movies) {
     return;
   }
 
-  const count = Math.min(movies.length, MAX_DISPLAY);
+  const count = Math.min(movies.length, MAX_DISPLAY); // fixme n'importe quoi !
   for (let i = 0; i < count; i += 1) {
     const movie = movies[i];
     const card = createCard(movie);
@@ -248,79 +243,64 @@ function renderCategorySection(targetElement, titleText, movies) {
 }
 
 
-// fixme: ne s'affiche pas
+// fixme: le visuel n'est pas encore correct revoir le css le copier coller du poc bootstrap demande des ajustements.
 function renderModal(details) {
-  if (!DOM.modal) return;       // Si pas de modal dans le DOM, on quitte
-  DOM.modal.innerHTML = '';     // Réinitialisation du contenu
-  if (!details) {               // Si pas de détails, on cache la modal
+  if (!DOM.modal) return;
+  DOM.modal.innerHTML = '';
+  if (!details) {
     DOM.modal.classList.add('hidden');
     return;
   }
-  // Construction du contenu de la modal
-  const dialog = document.createElement('div');
-  dialog.className = 'modal-dialog';
 
-  const content = document.createElement('div');
-  content.className = 'modal-content p-3';
+  DOM.modal.innerHTML = `
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="content-wrapper d-flex flex-column flex-md-row gap-3">
+            <div class="text-section flex-fill">
+              <h5>${details.title || 'Titre inconnu'}</h5>
+              <h6 class="text-muted">${details.year || ''}</h6>
+              <p><strong>Genres:</strong> ${(details.genres || []).join(', ')}</p>
+              <p><strong>Réalisateur(s):</strong> ${(details.directors || []).join(', ')}</p>
+              <p><strong>Acteurs:</strong> ${(details.actors || []).join(', ')}</p>
+            </div>
+            <div class="image-section flex-fill text-center">
+              <img src="${details.image_url || ''}" alt="${details.title || ''}" class="img-fluid rounded mb-2" style="max-height:300px;object-fit:cover;">
+            </div>
+          </div>
+          <div class="mt-4">
+            <p>${details.description || details.long_description || ''}</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="closeModalBtn">Fermer</button>
+        </div>
+      </div>
+    </div>
+  `;
 
-  const header = document.createElement('div');
-  header.className = 'modal-header';
-  const title = document.createElement('h5');
-  title.className = 'modal-title';
-  title.textContent = (details.title || 'Détails') + ' (' + (details.year || '') + ')';
-  header.appendChild(title);
-
-  // Bouton de fermeture
-  const close = document.createElement('button');
-  close.type = 'button';
-  close.className = 'btn-close';
-  close.id = 'modal-close-btn';
-  close.addEventListener('click', function () {
-    DOM.modal.classList.add('hidden');
-  });
-  header.appendChild(close); // Ajout du bouton de fermeture au header
-
-  const body = document.createElement('div');
-  body.className = 'modal-body';
-  const img = createImageHtml(details.image_url || '', details.title || '', 'img-fluid mb-2');
-  body.appendChild(img);
-
-  const genres = Array.isArray(details.genres) ? details.genres.join(', ') : '';
-  const directors = Array.isArray(details.directors) ? details.directors.join(', ') : '';
-  const actors = Array.isArray(details.actors) ? details.actors.join(', ') : '';
-  const desc = details.description || details.long_description || '';
-
-  const pGenres = document.createElement('p');
-  pGenres.innerHTML = '<strong>Genres:</strong> ' + genres;
-  body.appendChild(pGenres);
-
-  const pDirectors = document.createElement('p');
-  pDirectors.innerHTML = '<strong>Réalisateur(s):</strong> ' + directors;
-  body.appendChild(pDirectors);
-
-  const pActors = document.createElement('p');
-  pActors.innerHTML = '<strong>Acteurs:</strong> ' + actors;
-  body.appendChild(pActors);
-
-  const pDesc = document.createElement('p');
-  pDesc.textContent = desc;
-  body.appendChild(pDesc);
-
-  content.appendChild(header);
-  content.appendChild(body);
-  dialog.appendChild(content);
-  DOM.modal.appendChild(dialog);
+  const closeBtn = DOM.modal.querySelector('#closeModalBtn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function () {
+      DOM.modal.classList.add('hidden');
+    });
+  }
   DOM.modal.classList.remove('hidden');
 }
 
 
-// fixme: devrait ouvrir la modal avec les détails
+// OK - Affiche les détails dans la modal
 async function showDetails(movieId) {
   if (!movieId) return;
   const details = await getMovieDetails(movieId);
   renderModal(details);
 }
 
+async function getAllGenres() {
+    const endpoint = '/genres/?page_size=25';
+    const data = await fetchJson(endpoint);
+    return data.results;
+}
 
 // fixme: loadAll doit être revu une fois l'affichage des sections corrigées
 async function loadAll() {
@@ -334,13 +314,28 @@ async function loadAll() {
 
   //Catégories
   const mysteryMovies = await getTopMoviesByCategory('Mystery', MAX_DISPLAY);
-  renderCategorySection(DOM.mystery, 'Mystery', mysteryMovies); // fixme: ne s'affiche pas comme attendu.
+  renderCategorySection(DOM.mystery, 'Mystery', mysteryMovies);
 
   const thrillerMovies = await getTopMoviesByCategory('Thriller', MAX_DISPLAY);
-  renderCategorySection(DOM.thriller, 'Thriller', thrillerMovies); // fixme: ne s'affiche pas comme attendu.
+  renderCategorySection(DOM.thriller, 'Thriller', thrillerMovies);
 
   const actionMovies = await getTopMoviesByCategory('Action', MAX_DISPLAY);
-  renderCategorySection(DOM.action, 'Action', actionMovies); // fixme: ne s'affiche pas comme attendu.
+  renderCategorySection(DOM.action, 'Action', actionMovies);
+
+  const allGenres = await getAllGenres();
+  for (i=0; i < allGenres.length; i++){
+    document.getElementById("categories").innerHTML += `<option value="${allGenres[i].name}">${allGenres[i].name}</option>`;
+  }
+
+  // on event change log name
+  document.getElementById("categories").addEventListener("change", function(event){
+    const selectedCategory = getTopMoviesByCategory(event.target.value, MAX_DISPLAY);
+    selectedCategory.then((selectedCategory) => {
+        renderCategorySection(DOM.category, '', selectedCategory);
+    })
+    // console.log(selectedCategory);
+    // renderCategorySection(DOM.action, '', selectedCategory);
+  });
 }
 
 
