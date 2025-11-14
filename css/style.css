@@ -15,3 +15,19 @@ body {
     max-height: 336px;
   }
 }
+
+/* Affiche la modale */
+.modal {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Par défaut class hidden pour masquer la modale */
+.modal.hidden {
+  display: none !important; /* !important pour forcer le masquage de la modale */
+}
