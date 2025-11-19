@@ -48,10 +48,10 @@ async function getBestMovie() {
 
 // OK - récupère le json des 6 meilleurs films toute catégories.
 async function getTopMovies(limit) {
-  limit++ // pour éviter d'avoir le meilleur film dans la liste
+  limit++ // on prend un de plus pour enlever le meilleur film ensuite
   const endpoint = `/titles/?sort_by=-imdb_score,-votes&page_size=${limit}`;
   const data = await fetchJson(endpoint);
-  return data.results.slice(1, limit);
+  return data.results.slice(1, limit); // on enlève le meilleur film position zéro
 }
 
 // OK - 6 meilleurs films d'une catégorie.
