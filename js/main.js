@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8001/api/v1';
+const BASE_URL = 'http://localhost:8000/api/v1';
 const MAX_DISPLAY = 6;
 
 // OK - Récupération des éléments du DOM
@@ -68,7 +68,7 @@ async function getMovieDetails(movieId) {
   return movieData;
 }
 
-// Crée un élément image ou un placeholder si l'URL est vide (Copilot l'a fait pour moi à revoir + tard)
+// Crée un élément image ou un placeholder si l'URL est vide
 function createImageHtml(src, alt, cssClasses) {
   if (src) {
     const img = document.createElement('img');
@@ -76,7 +76,9 @@ function createImageHtml(src, alt, cssClasses) {
     img.alt = alt || '';
     img.className = cssClasses || '';
     img.style.objectFit = 'cover';
-    img.onerror = function () { this.src = 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Placeholder_male_superhero_c.png'; }; // j'ai l'impression que ce n'est pas très propre
+    // si erreur de chargement de l'image, on met une image par défaut
+    img.onerror = function () { this.src = 'assets/Placeholder.svg'; };
+    // img.onerror = function () { this.src = 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Placeholder_male_superhero_c.png'; };
     return img;
   }
   const placeholder = document.createElement('div');
@@ -232,7 +234,7 @@ function renderCategorySection(targetElement, titleText, movies) {
     return;
   }
 
-  const count = Math.min(movies.length, MAX_DISPLAY); // fixme n'importe quoi !
+  const count = Math.min(movies.length, MAX_DISPLAY);
   for (let i = 0; i < count; i += 1) {
     const movie = movies[i];
     const card = createCard(movie);
