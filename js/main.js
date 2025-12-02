@@ -312,7 +312,7 @@ async function loadAll() {
 
   // Top6 films
   const top = await getTopMovies(MAX_DISPLAY);
-  renderTopMovies(top); // fixme: ne s'affiche pas comme attendu.
+  renderTopMovies(top);
 
   //Catégories
   const mysteryMovies = await getTopMoviesByCategory('Mystery', MAX_DISPLAY);

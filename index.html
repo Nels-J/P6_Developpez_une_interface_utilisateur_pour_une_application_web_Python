@@ -27,22 +27,23 @@
 			<section>
       			<h2 class="text-center text-sm-start mt-4">Meilleur Film</h2>
 				<div id="best-movie" class="border border-dark border-5 p-3 text-center text-md-start mb-4">
-				<!--	injecter ici via JS	-->
+					<!--	injecter ici via JS	les éléments provenant de l'API pour le best film -->
 				</div>
 			</section>
 
             <section>
 				<h2 class="text-center text-sm-start">Film les mieux notés</h2>
-				<div class="row g-4">
-					<div class="col-12 col-sm-6 col-lg-4">
-            <div class="imageBox">
-						  <div class="imageWrapper">
-							  <img src="https://m.media-amazon.com/images/I/71-B0aUFxYL.jpg" alt="Image 1">
-						  </div>
-              <h3>Titanic</h3>
-
-            </div>
+				<div class="row g-4"> <!-- gouttière de 4 pour espacer les colonnes -->
+					<div class="col-12 col-sm-6 col-lg-4"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
+            			<div class="imageBox"> <!-- Ajout d'une div englobante pour le style -->
+							<div class="imageWrapper"> <!-- Ajout d'une div pour gérer le ratio -->
+								<img src="https://m.media-amazon.com/images/I/71-B0aUFxYL.jpg" alt="Image 1">
+								<!-- injecter ici via JS les éléments provenant de l'API pour les top films -->
+						  	</div>
+              				<h3>Titanic</h3>
+						</div>
 					</div>
+					<!-- Répéter les colonnes pour chaque film -->
 		  			<div class="col-12 col-sm-6 col-lg-4">
 						<div class="imageWrapper mb-4">
 							<img src="https://placehold.co/400" alt="Image 2">
@@ -70,9 +71,6 @@
 				  	</div>
     			</div>
 			</section>
-
-
-
 
 
 			<section class="row film-category" >
