@@ -77,14 +77,13 @@ function createImageHtml(src, alt, cssClasses) {
     img.className = cssClasses || '';
     img.style.objectFit = 'cover';
     // si erreur de chargement de l'image, on met une image par défaut
-    img.onerror = function () { this.src = 'assets/Placeholder.svg'; };
-    // img.onerror = function () { this.src = 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Placeholder_male_superhero_c.png'; };
+    // img.onerror = function () { this.src = 'assets/Placeholder.svg'; };
+    // img.onerror = "this.src='assets/Placholder.svg';";
+    img.setAttribute("onerror", "this.src='assets/Placholder.svg';" )
     return img;
   }
   const placeholder = document.createElement('div');
   placeholder.className = 'bg-secondary text-white d-flex align-items-center justify-content-center';
-  placeholder.style.height = '180px';
-  placeholder.style.width = '140px';
   placeholder.textContent = 'Image non disponible';
   return placeholder;
 }
@@ -134,7 +133,7 @@ function renderBestMovie(movieDatas) {
   DOM.bestMovie.appendChild(divBtn);
 }
 
-// todo: A REMPLACER PAR MON HTML (généré par copilot mais je ne veux pas de card)
+// todo: A REMPLACER PAR MON HTML
 function createCard(movie) {
   const col = document.createElement('div');
   col.className = 'col-6 col-md-4 mb-3';
@@ -206,8 +205,8 @@ function renderTopMovies(movies) {
   const count = Math.min(movies.length, MAX_DISPLAY);
   for (let i = 0; i < count; i += 1) {
     const movie = movies[i];
-    const card = createCard(movie);
-    row.appendChild(card);
+    const cardHTML = testCreateCard(movie);
+    row.innerHTML += cardHTML; // row.appendChild(card);
   }
 }
 
@@ -341,7 +340,6 @@ async function loadAll() {
 }
 
 
-// todo: a vérifier une fois que la modal fonctionnera
 document.addEventListener('click', function (e) {
   if (!DOM.modal) return;
   if (!DOM.modal.classList.contains('hidden')) {
@@ -357,3 +355,19 @@ document.addEventListener('click', function (e) {
 document.addEventListener('DOMContentLoaded', function () {
   loadAll().catch(function (err) { console.error('init error', err); });
 });
+
+
+function testCreateCard(movie) {
+  const image = createImageHtml(movie.image_url)
+  return `<div className="col-12 col-sm-6 col-lg-4"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
+    <div className="imageBox"> <!-- Ajout d'une div englobante pour le style -->
+      <div className="imageWrapper"> <!-- Ajout d'une div pour gérer le ratio -->
+        ${image.outerHTML}
+         
+<!--        <img src="${movie.image_url}" alt="Image 1"/>-->
+        <!-- injecter ici via JS les éléments provenant de l'API pour les top films -->
+      </div>
+      <h3>${movie.title}</h3>
+    </div>
+  </div>`;
+}
