@@ -133,7 +133,6 @@ function renderBestMovie(movieDatas) {
   DOM.bestMovie.appendChild(divBtn);
 }
 
-// todo: A REMPLACER PAR MON HTML
 function createCard(movie) {
   const col = document.createElement('div');
   col.className = 'col-6 col-md-4 mb-3';
@@ -244,7 +243,6 @@ function renderCategorySection(targetElement, titleText, movies) {
 }
 
 
-// fixme: le visuel n'est pas encore correct revoir le css le copier coller du poc bootstrap demande des ajustements.
 function renderModal(details) {
   if (!DOM.modal) return;
   DOM.modal.innerHTML = '';
@@ -303,7 +301,6 @@ async function getAllGenres() {
     return data.results;
 }
 
-// fixme: loadAll doit être revu une fois l'affichage des sections corrigées
 async function loadAll() {
   // OK - Meilleur film
   const bestMovieDatas = await getBestMovie();
