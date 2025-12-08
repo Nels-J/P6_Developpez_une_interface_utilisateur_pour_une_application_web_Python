@@ -33,7 +33,7 @@
 
 			<!-- Section - Les meilleurs films -->
             <section>
-				<h2 class="text-center text-sm-start">Film les mieux notés ancienne version</h2>
+				<h2 class="text-center text-sm-start">Film les mieux notés</h2>
 				<div class="row g-4"> <!-- gouttière de 4 pour espacer les colonnes -->
 					<div class="col-12 col-sm-6 col-lg-4"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
             			<div class="imageBox"> <!-- Ajout d'une div englobante pour le style -->
@@ -41,7 +41,12 @@
 								<img src="https://m.media-amazon.com/images/I/71-B0aUFxYL.jpg" alt="Image 1">
 								<!-- injecter ici via JS les éléments provenant de l'API pour les top films -->
 						  	</div>
-              				<h3>Titanic</h3>
+							<div class="overlay">
+								<h3 class="title">Titanic</h3>
+								<button class="detailBtn btn btn-secondary rounded-pill px-4">
+									Détails
+								</button>
+							</div>
 						</div>
 					</div>
 					<!-- Répéter les colonnes pour chaque film -->
