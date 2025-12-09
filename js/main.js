@@ -78,8 +78,8 @@ function createImageHtml(src, alt, cssClasses) {
     img.style.objectFit = 'cover';
     // si erreur de chargement de l'image, on met une image par défaut
     // img.onerror = function () { this.src = 'assets/Placeholder.svg'; };
-    // img.onerror = "this.src='assets/Placholder.svg';";
-    img.setAttribute("onerror", "this.src='assets/Placholder.svg';" )
+    // img.onerror = "this.src='assets/Placeholder.svg';";
+    img.setAttribute("onerror", "this.src='assets/Placeholder.svg';" )
     return img;
   }
   const placeholder = document.createElement('div');
@@ -288,7 +288,7 @@ function renderModal(details) {
 }
 
 
-// OK - Affiche les détails dans la modal
+// OK - Affiche les détails dans la 'modal'
 async function showDetails(movieId) {
   if (!movieId) return;
   const details = await getMovieDetails(movieId);
