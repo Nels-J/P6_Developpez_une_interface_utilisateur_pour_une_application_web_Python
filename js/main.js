@@ -174,38 +174,13 @@ function createCard(movie) {
 }
 
 
-function renderTopMovies(movies) {
-  const containerId = 'top-global';
-  let container = document.getElementById(containerId);
-  if (!container) {
-    container = document.createElement('section');
-    container.id = containerId;
-    const h2 = document.createElement('h2');
-    h2.textContent = 'Film les mieux notés';
-    container.appendChild(h2);
-    const row = document.createElement('div');
-    row.className = 'row';
-    row.id = containerId + '-row';
-    container.appendChild(row);
-    const main = document.querySelector('main');
-    if (main) main.insertBefore(container, DOM.mystery ? DOM.mystery.parentElement : null);
-  }
-
-  const row = document.getElementById(containerId + '-row');
-  row.innerHTML = '';
-
-  if (!Array.isArray(movies) || movies.length === 0) {
-    const p = document.createElement('p');
-    p.textContent = 'Aucun film dans les mieux notés.';
-    row.appendChild(p);
-    return;
-  }
-
+function renderSection(movies, targetElement) {
   const count = Math.min(movies.length, MAX_DISPLAY);
+  const container = document.getElementById(targetElement)
   for (let i = 0; i < count; i += 1) {
     const movie = movies[i];
     const cardHTML = testCreateCard(movie);
-    row.innerHTML += cardHTML; // row.appendChild(card);
+    container.innerHTML += cardHTML; // row.appendChild(card);
   }
 }
 
@@ -302,23 +277,33 @@ async function getAllGenres() {
 }
 
 async function loadAll() {
+  // Ecoute de tous les clics sur le bouton detail pour récupérer l'ID et invoquer l'affichage d'une 'modal'.
+  document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("detailBtn")) {
+    showDetails(e.target.dataset.id);
+  }
+});
+
   // OK - Meilleur film
   const bestMovieDatas = await getBestMovie();
   renderBestMovie(bestMovieDatas);
 
   // Top6 films
   const top = await getTopMovies(MAX_DISPLAY);
-  renderTopMovies(top);
+  renderSection(top, 'best-movies');
 
   //Catégories
   const mysteryMovies = await getTopMoviesByCategory('Mystery', MAX_DISPLAY);
-  renderCategorySection(DOM.mystery, 'Mystery', mysteryMovies);
+  // renderCategorySection(DOM.mystery, 'Mystery', mysteryMovies);
+  renderSection(mysteryMovies, 'best-mistery')
 
   const thrillerMovies = await getTopMoviesByCategory('Thriller', MAX_DISPLAY);
-  renderCategorySection(DOM.thriller, 'Thriller', thrillerMovies);
+  // renderCategorySection(DOM.thriller, 'Thriller', thrillerMovies);
+  renderSection(thrillerMovies, 'best-thriller')
 
   const actionMovies = await getTopMoviesByCategory('Action', MAX_DISPLAY);
-  renderCategorySection(DOM.action, 'Action', actionMovies);
+  // renderCategorySection(DOM.action, 'Action', actionMovies);
+  renderSection(actionMovies, 'best-actions')
 
   const allGenres = await getAllGenres();
   for (i=0; i < allGenres.length; i++){
@@ -356,15 +341,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function testCreateCard(movie) {
   const image = createImageHtml(movie.image_url)
-  return `<div className="col-12 col-sm-6 col-lg-4"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
-    <div className="imageBox"> <!-- Ajout d'une div englobante pour le style -->
-      <div className="imageWrapper"> <!-- Ajout d'une div pour gérer le ratio -->
+  return `<div class="col-12 col-sm-6 col-lg-4"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
+    <div class="imageBox"> <!-- Ajout d'une div englobante pour le style -->
+      <div class="imageWrapper"> <!-- Ajout d'une div pour gérer le ratio -->
         ${image.outerHTML}
          
 <!--        <img src="${movie.image_url}" alt="Image 1"/>-->
         <!-- injecter ici via JS les éléments provenant de l'API pour les top films -->
       </div>
-      <h3>${movie.title}</h3>
+      <div class="overlay">
+	    <h3 class="title">${movie.title}</h3>
+		<button data-id="${movie.id}" class="detailBtn btn btn-secondary rounded-pill px-4">Détails</button>
+	  </div>
     </div>
   </div>`;
 }

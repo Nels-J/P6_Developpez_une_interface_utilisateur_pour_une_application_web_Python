@@ -32,7 +32,7 @@
 			<!-- Section - Le meilleur film -->
 			<section>
       			<h2 class="text-center text-sm-start mt-4">Meilleur Film</h2>
-				<!-- Squelette pour le meilleur film	-->
+				<!-- Squelette pour le meilleur film -->
 				<div id="best-movie" class="border border-dark border-5 p-3 text-center text-md-start mb-4">
 					<img src="assets/Placeholder.svg"
 						 alt="Texte alternatif de l'image de présentation du film - Indisponible"
@@ -48,68 +48,29 @@
 			<!-- Section - Les meilleurs films -->
             <section>
 				<h2 class="text-center text-sm-start">Film les mieux notés</h2>
-				<div class="row g-4"> <!-- gouttière de 4 pour espacer les colonnes -->
-					<div class="col-12 col-sm-6 col-lg-4"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
-            			<div class="imageBox"> <!-- Ajout d'une div englobante pour le style -->
-							<div class="imageWrapper"> <!-- Ajout d'une div pour gérer le ratio -->
-								<img src="https://m.media-amazon.com/images/I/71-B0aUFxYL.jpg" alt="Image 1">
-								<!-- injecter ici via JS les éléments provenant de l'API pour les top films -->
-						  	</div>
-							<div class="overlay">
-								<h3 class="title">Titanic</h3>
-								<button class="detailBtn btn btn-secondary rounded-pill px-4">
-									Détails
-								</button>
-							</div>
-						</div>
-					</div>
-					<!-- Répéter les colonnes pour chaque film -->
-		  			<div class="col-12 col-sm-6 col-lg-4">
-						<div class="imageWrapper mb-4">
-							<img src="https://placehold.co/400" alt="Image 2">
-						</div>
-				  	</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-						<div class="imageWrapper mb-4">
-							<img src="https://placehold.co/200" alt="Image 3">
-						</div>
-			  		</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-					  	<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/800" alt="Image 4">
-					  	</div>
-				  	</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-					  	<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 5">
-					  	</div>
-				  	</div>
-					<div class="col-12 col-sm-6 col-lg-4">
-					  	<div class="ratio ratio-1x1 mb-4">
-							<img src="https://placehold.co/400" alt="Image 6">
-					  	</div>
-				  	</div>
+				<div id='best-movies' class="row g-4"> <!-- gouttière de 4 pour espacer les colonnes -->
     			</div>
 			</section>
 
+			<!-- Section - Les meilleurs films par catégories -->
+			<section>
+				<h2 class="text-center text-sm-start">Films à suspense les mieux notés</h2>
+				<div id='best-mistery' class="row g-4"> <!-- gouttière de 4 pour espacer les colonnes -->
+    			</div>
+			</section>
 
-			<section class="row film-category" >
-                <div class="col-md-12" id="mistery">
-					<!--	injecter ici via JS	-->
-				</div>
-            </section>
+			<section>
+				<h2 class="text-center text-sm-start">Films d'horreur les mieux notés</h2>
+				<div id='best-thriller' class="row g-4"> <!-- gouttière de 4 pour espacer les colonnes -->
+    			</div>
+			</section>
 
-			<section class="row film-category" >
-                <div class="col-md-12" id="thriller">
-					<!--	injecter ici via JS	-->
-				</div>
-            </section>
+			<section>
+				<h2 class="text-center text-sm-start">Films d'actions les mieux notés</h2>
+				<div id='best-actions' class="row g-4"> <!-- gouttière de 4 pour espacer les colonnes -->
+    			</div>
+			</section>
 
-            <section class="row film-category" >
-                <div class="col-md-12" id="action">
-					<!--	injecter ici via JS	-->
-				</div>
-            </section>
 
 			<section class="row film-category-dropdown" >
                 <select class="col-md-12" name="category" id="categories">
