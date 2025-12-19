@@ -175,7 +175,7 @@ function createCard(movie) {
 
 
 function renderSection(movies, targetElement) {
-  const count = Math.min(movies.length, MAX_DISPLAY);
+  const count = Math.min(movies.length, MAX_DISPLAY); // protection si moins d'éléments que MAX_DISPLAY
   const container = document.getElementById(targetElement)
   for (let i = 0; i < count; i += 1) {
     const movie = movies[i];
