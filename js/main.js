@@ -286,12 +286,22 @@ async function loadAll() {
   }
 });
 
-  // Ajout de l'écoute du bouton voir plus (mobile et tablette)
-  // document.addEventListener("click", function (e) {
-  //   if (e.target.classList.contains("showMoreBtn")) {
-  //     // Dois modifier le comportement de la page pour qu'elle ne masque pas d'élements en mode tablette ou mobile.
-  //   }
-  // })
+  // Ecoute de tous les clics sur les boutons Voir plus | moins.
+  document.addEventListener("click", function (e) {
+    const button = e.target.closest('.showMoreBtn');
+    if (!button) return;
+
+    const section = button.closest('section')
+    if (!section) return;
+
+    const targets = section.querySelectorAll('.row [class*="d-lg-block"], .row[class*="d-md-block"]');
+
+    targets.forEach(el => el.classList.toggle('d-none'));
+
+    const expanded = button.dataset.expanded === 'true'
+    button.textContent = expanded ? 'Voir plus' : 'Voir moins';
+    button.dataset.expanded = (!expanded).toString();
+  })
 
   // OK - Meilleur film
   const bestMovieDatas = await getBestMovie();
