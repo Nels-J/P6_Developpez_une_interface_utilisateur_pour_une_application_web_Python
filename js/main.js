@@ -4,13 +4,12 @@ const MAX_DISPLAY = 6;
 // OK - Récupération des éléments du DOM
 const DOM = {
   bestMovie: document.getElementById('best-movie'),
-  mystery: document.getElementById('mistery'),
-  thriller: document.getElementById('thriller'),
-  action: document.getElementById('action'),
   category: document.getElementById('category-section'),
   modal: document.getElementById('bestMovieModal'),
 };
 
+
+// DONNEES
 // OK - fetch utilitaire et pour gérer les erreurs
 async function fetchJson(endpoint) {
   const url = BASE_URL + endpoint;
@@ -68,6 +67,8 @@ async function getMovieDetails(movieId) {
   return movieData;
 }
 
+
+// CONSTRUCTION
 // Crée un élément image ou un placeholder si l'URL est vide
 function createImageHtml(src, alt, cssClasses) {
   if (src) {
@@ -76,10 +77,7 @@ function createImageHtml(src, alt, cssClasses) {
     img.alt = alt || '';
     img.className = cssClasses || '';
     img.style.objectFit = 'cover';
-    // si erreur de chargement de l'image, on met une image par défaut
-    // img.onerror = function () { this.src = 'assets/Placeholder.svg'; };
-    // img.onerror = "this.src='assets/Placeholder.svg';";
-    img.setAttribute("onerror", "this.src='assets/Placeholder.svg';" )
+    img.setAttribute("onerror", "this.src='https://placehold.co/182x268?text=Pas+de+poster';")
     return img;
   }
   const placeholder = document.createElement('div');
@@ -143,9 +141,6 @@ function createCard(movie) {
   const imgContainer = document.createElement('div');
   imgContainer.className = 'd-flex justify-content-center pt-2';
   const img = createImageHtml(movie.image_url || '', movie.title || '', 'img-max-height');
-  // img.onerror(() => {
-  //  img.src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Placeholder_male_superhero_c.png";
-  // });
 
   imgContainer.appendChild(img);
 
@@ -177,9 +172,16 @@ function createCard(movie) {
 function renderSection(movies, targetElement) {
   const count = Math.min(movies.length, MAX_DISPLAY); // protection si moins d'éléments que MAX_DISPLAY
   const container = document.getElementById(targetElement)
+  let cardClass = ''
   for (let i = 0; i < count; i += 1) {
     const movie = movies[i];
-    const cardHTML = testCreateCard(movie);
+    if (i > 1){
+      cardClass = 'd-none d-lg-block d-md-block'
+    }
+    if (i > 3) {
+      cardClass = 'd-none d-lg-block'
+    }
+    const cardHTML = testCreateCard(movie, cardClass);
     container.innerHTML += cardHTML; // row.appendChild(card);
   }
 }
@@ -284,6 +286,13 @@ async function loadAll() {
   }
 });
 
+  // Ajout de l'écoute du bouton voir plus (mobile et tablette)
+  // document.addEventListener("click", function (e) {
+  //   if (e.target.classList.contains("showMoreBtn")) {
+  //     // Dois modifier le comportement de la page pour qu'elle ne masque pas d'élements en mode tablette ou mobile.
+  //   }
+  // })
+
   // OK - Meilleur film
   const bestMovieDatas = await getBestMovie();
   renderBestMovie(bestMovieDatas);
@@ -339,9 +348,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-function testCreateCard(movie) {
+function testCreateCard(movie, cardClass = '') {
   const image = createImageHtml(movie.image_url)
-  return `<div class="col-12 col-sm-6 col-lg-4"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
+  return `<div class="col-12 col-sm-6 col-lg-4 ${cardClass}"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
     <div class="imageBox"> <!-- Ajout d'une div englobante pour le style -->
       <div class="imageWrapper"> <!-- Ajout d'une div pour gérer le ratio -->
         ${image.outerHTML}
