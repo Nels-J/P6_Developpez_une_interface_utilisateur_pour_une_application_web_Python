@@ -5,7 +5,7 @@ const MAX_DISPLAY = 6;
 const DOM = {
   bestMovie: document.getElementById('best-movie'),
   category: document.getElementById('category-section'),
-  modal: document.getElementById('bestMovieModal'),
+  modal: document.getElementById('movieModal'),
 };
 
 
