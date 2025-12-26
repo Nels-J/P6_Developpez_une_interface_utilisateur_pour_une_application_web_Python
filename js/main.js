@@ -279,29 +279,34 @@ async function getAllGenres() {
 }
 
 async function loadAll() {
-  // Ecoute de tous les clics sur le bouton detail pour récupérer l'ID et invoquer l'affichage d'une 'modal'.
-  document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("detailBtn")) {
-    showDetails(e.target.dataset.id);
+  // Ecoute de tous les clics
+  document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("detailBtn")) {
+      showDetails(event.target.dataset.id);
   }
-});
+    if (event.target.classList.contains("showMoreBtn")) {
 
-  // Ecoute de tous les clics sur les boutons Voir plus | moins.
-  document.addEventListener("click", function (e) {
-    const button = e.target.closest('.showMoreBtn');
-    if (!button) return;
+      const section = event.target.parentElement.parentElement;
+      toggleVisibility(section)
 
-    const section = button.closest('section')
-    if (!section) return;
+      const button = event.target
+      toggleButtonState(button);
+    }
 
-    const targets = section.querySelectorAll('.row [class*="d-lg-block"], .row[class*="d-md-block"]');
+    function toggleVisibility(section) {
+      const elements = section.querySelectorAll(
+          '.row [class*="d-lg-block"], .row[class*="d-md-block"]'
+      );
+      elements.forEach(el => el.classList.toggle("d-none"));
+    }
 
-    targets.forEach(el => el.classList.toggle('d-none'));
+    function toggleButtonState(button) {
+      const isExpanded = button.dataset.expanded === "true"
+      button.textContent = isExpanded ? "Voir plus" : "Voir moins";
+      button.dataset.expanded = String(!isExpanded);
+    }
+  });
 
-    const expanded = button.dataset.expanded === 'true'
-    button.textContent = expanded ? 'Voir plus' : 'Voir moins';
-    button.dataset.expanded = (!expanded).toString();
-  })
 
   // OK - Meilleur film
   const bestMovieDatas = await getBestMovie();
