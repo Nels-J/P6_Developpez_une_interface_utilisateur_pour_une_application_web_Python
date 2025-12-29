@@ -8,12 +8,20 @@ const MAX_DISPLAY = 6;
 
 // OK - Récupération des éléments du DOM
 //endregion
+
+//region DOM selectors
+
+/**
+ * Cached DOM elements used across the application.
+ * Helps avoid repeated DOM queries.
+ */
 const DOM = {
   bestMovie: document.getElementById('best-movie'),
   category: document.getElementById('category-section'),
   modal: document.getElementById('movieModal'),
 };
 
+//endregion
 
 // DONNEES
 // OK - fetch utilitaire et pour gérer les erreurs
