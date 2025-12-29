@@ -316,8 +316,16 @@ function renderModal(details) {
   DOM.modal.classList.remove('hidden');
 }
 
+//endregion
 
-// OK - Affiche les détails dans la 'modal'
+
+//region Events
+
+/**
+ * Fetches & displays movie details in a modal when "Details" button is clicked.
+ * @param movieId
+ * @returns {Promise<void>}
+ */
 async function showDetails(movieId) {
   if (!movieId) return;
   const details = await getMovieDetails(movieId);
