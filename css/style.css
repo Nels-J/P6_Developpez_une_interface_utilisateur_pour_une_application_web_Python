@@ -42,7 +42,7 @@ body {
   height: 25%;
   top: 35%;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1;
 }
 
@@ -61,24 +61,6 @@ body {
     bottom: 10px;
     right: 15px;
 }
-
-
-/*.imageBox h3 {*/
-/*  position: absolute;*/
-/*  top: 30%;*/
-/*  z-index: 1;*/
-/*  background-color: rgba(0, 0, 0, 0.2);*/
-/*  width: 100%;*/
-/*  padding: 20px;*/
-/*  color: #fff;*/
-/*}*/
-
-/*.imageBox button {*/
-/*  position: absolute;*/
-/*  bottom: 10px;*/
-/*  right: 15px;*/
-/*}*/
-
 
 /* Affiche la modale */
 .modal {
