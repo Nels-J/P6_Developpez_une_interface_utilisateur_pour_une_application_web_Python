@@ -6,8 +6,8 @@ const BASE_URL = 'http://localhost:8000/api/v1';
 /** Maximum number of movies displayed per section */
 const MAX_DISPLAY = 6;
 
-// OK - Récupération des éléments du DOM
 //endregion
+
 
 //region DOM selectors
 
@@ -23,8 +23,15 @@ const DOM = {
 
 //endregion
 
-// DONNEES
-// OK - fetch utilitaire et pour gérer les erreurs
+
+//region Data / API
+
+/**
+ * Performs a GET request to the API and returns the parsed JSON data.
+ *
+ * @param {string} endpoint - Relative API path (e.g. '/titles/?sort_by=-imdb_score').
+ * @returns {Promise<Object|null>} - Parsed JSON response or null on error.
+ */
 async function fetchJson(endpoint) {
   const url = BASE_URL + endpoint;
   try {
@@ -40,7 +47,11 @@ async function fetchJson(endpoint) {
   }
 }
 
-// OK - récupère le json du meilleur film et son détail
+/**
+ * Retrieves the best-rated movie based on IMDb score and vote count.
+ *
+ * @returns {Promise<Object|null>} Full movie details or null if unavailable.
+ */
 async function getBestMovie() {
   const data = await fetchJson('/titles/?sort_by=-imdb_score,-votes&limit=1');
   if (!data) {
@@ -59,7 +70,12 @@ async function getBestMovie() {
   return movieData;
 }
 
-// OK - récupère le json des 6 meilleurs films toute catégories.
+/**
+ * Retrieves top-rated movies across all categories.
+ *
+ * @param {number} limit - Maximum number of movies to retrieve.
+ * @returns {Promise<Array<Object>>} List of movie objects.
+ */
 async function getTopMovies(limit) {
   limit++ // on prend un de plus pour enlever le meilleur film ensuite
   const endpoint = `/titles/?sort_by=-imdb_score,-votes&page_size=${limit}`;
@@ -67,19 +83,31 @@ async function getTopMovies(limit) {
   return data.results.slice(1, limit); // on enlève le meilleur film position zéro
 }
 
-// OK - 6 meilleurs films d'une catégorie.
+/**
+ * Retrieves top-rated movies for a given category.
+ *
+ * @param {string} category - Movie genre.
+ * @param {number} limit - Maximum number of movies.
+ * @returns {Promise<Array<Object>>}
+ */
 async function getTopMoviesByCategory(category, limit) {
   const endpoint = `/titles/?genre=${category}&sort_by=-imdb_score,-votes&page_size=${limit}`;
   const data = await fetchJson(endpoint);
   return data.results;
 }
 
-// OK - ajout de l'ID au endpoint titles/ pour obtenir + de détails
+/**
+ * Retrieves movie detail on a given movie ID
+ * @param movieId
+ * @returns {Promise<Object|null>}
+ */
 async function getMovieDetails(movieId) {
   if (!movieId) return null;
   const movieData = await fetchJson(`/titles/${movieId}`);
   return movieData;
 }
+
+//endregion
 
 
 // CONSTRUCTION
