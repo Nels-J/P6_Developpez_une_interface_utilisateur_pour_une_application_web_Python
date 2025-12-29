@@ -166,7 +166,6 @@ function renderBestMovie(movieDatas) {
 
   const img = document.createElement('img');
   img.src = movieDatas.image_url || '';
-  img.alt = movieDatas.title ? `Image de présentation du film ${movieDatas.title}` : 'Image de présentation';
   // alt string 'Poster of the movie ${movieDatas.title}' | 'Poster of the movie with unknown title' in French
   img.alt = movieDatas.title ? `Image de présentation du film ${movieDatas.title}` : 'Image de présentation du film au titre inconnu';
   img.className = 'img-fluid w-100 img-max-height mb-3 overflow-hidden';
