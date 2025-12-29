@@ -327,6 +327,12 @@ async function showDetails(movieId) {
 //endregion
 
 
+//region Initialization
+
+/**
+ * Initializes the application by loading and rendering all sections.
+ * @returns {Promise<void>}
+ */
 async function loadAll() {
   // Ecoute de tous les clics
   document.addEventListener("click", function (event) {
@@ -411,6 +417,7 @@ document.addEventListener('DOMContentLoaded', function () {
   loadAll().catch(function (err) { console.error('init error', err); });
 });
 
+//endregion
 
 
 //region Utils
