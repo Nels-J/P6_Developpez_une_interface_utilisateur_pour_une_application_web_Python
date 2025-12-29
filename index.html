@@ -31,7 +31,6 @@
 			<!-- Section - Best Movie -->
 			<section>
 				<h2 class="text-center text-sm-start mt-4">Meilleur Film</h2> <!-- Best Movie -->
-				<!-- Skeleton for best movie -->
 				<div id="best-movie" class="border border-dark border-5 p-3 text-center text-md-start mb-4">
 					<!-- Alternative text for the movie poster - Unavailable -->
 					<img src="assets/Placeholder.svg"
@@ -41,17 +40,21 @@
 					<h3 class="fw-bold text-start mb-2 overflow-hidden">Titre du film - Indisponible</h3>
 					<!-- Movie description text - Unavailable -->
 					<p class="text-start text-justify mb-3 mb-sm-1 overflow-hidden">Texte d'introduction du film - non disponible.</p>
+					<!-- Details button -->
 					<div class="text-center text-sm-end overflow-hidden">
 						<button class="btn btn-danger rounded-pill px-4" data-id="MOVIE_ID">Détails</button>
 					</div>
 				</div>
 			</section>
 
-
-			<section>  <!-- Section - Best Movies -->
-				<h2 class="text-center text-sm-start">Film les mieux notés</h2> <!-- Best Movies -->
+			<!-- Section - Best MovieS -->
+			<section>
+				<!-- Best MovieS -->
+				<h2 class="text-center text-sm-start">Film les mieux notés</h2>
 				<div id='best-movies' class="row g-4">
-    			</div>
+    				<!-- JS injection -->
+				</div>
+
 				<div class="text-center d-block d-lg-none">
 					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button> <!-- See more -->
 				</div>
@@ -59,40 +62,50 @@
 
 			<!-- Section - The best movies by categories -->
 			<section>
-				<h2 class="text-center text-sm-start">Films à suspense les mieux notés</h2>
 				<!-- The best mystery movies -->
+				<h2 class="text-center text-sm-start">Films à suspense les mieux notés</h2>
 				<div id='best-mistery' class="row g-4">
-    			</div>
+    				<!-- JS injection -->
+				</div>
+
+				<!-- See more -->
 				<div class="text-center d-block d-lg-none">
-					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button> <!-- See more -->
+					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button>
 				</div>
 			</section>
 
 			<!-- Section - The best thriller movies -->
 			<section>
-				<h2 class="text-center text-sm-start">Films d'horreur les mieux notés</h2>
 				<!-- The best thriller movies -->
+				<h2 class="text-center text-sm-start">Films d'horreur les mieux notés</h2>
 				<div id='best-thriller' class="row g-4">
-    			</div>
+    				<!-- JS injection -->
+				</div>
+
+				<!-- See more -->
 				<div class="text-center d-block d-lg-none">
-					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button> <!-- See more -->
+					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button>
 				</div>
 			</section>
 
 			<!-- Section - The best action movies -->
 			<section>
-				<h2 class="text-center text-sm-start">Films d'actions les mieux notés</h2>
 				<!-- The best action movies -->
+				<h2 class="text-center text-sm-start">Films d'actions les mieux notés</h2>
 				<div id='best-actions' class="row g-4">
-    			</div>
+    				<!-- JS injection -->
+				</div>
+
+				<!-- See more -->
   				<div class="text-center d-block d-lg-none">
-					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button> <!-- See more -->
+					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button>
 				</div>
 			</section>
 
-			<!-- Section - The best movies in a user choice category -->
+			<!-- Section - Others best movies in a user defined category -->
 			<section class="row film-category-dropdown" >
-				<h2 class="text-center text-sm-start mt-4">Autres :</h2> <!-- Others: -->
+				<!-- Others: -->
+				<h2 class="text-center text-sm-start mt-4">Autres :</h2>
                 <select class="col-md-12" name="category" id="categories">
 					<!-- JS injection -->
                 </select>
@@ -101,8 +114,9 @@
 					<!-- JS injection -->
 				</div>
 
+				<!-- See more -->
 				<div class="text-center d-block d-lg-none">
-					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button> <!-- See more -->
+					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button>
 				</div>
             </section>
 
@@ -113,8 +127,7 @@
 				 aria-modal="true"
 				 aria-labelledby="filmModalTitle"
 				 tabindex="-1">
-
-				<h3 id="filmModalTitle">Détails du film</h3> <!-- Movie Details -->
+				<h3 id="filmModalTitle">Détails du film</h3>
 			</div>
 
 		</main>
