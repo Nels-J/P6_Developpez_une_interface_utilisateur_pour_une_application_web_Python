@@ -107,6 +107,16 @@ async function getMovieDetails(movieId) {
   return movieData;
 }
 
+/**
+ * Retrieves all movie genres from the API.
+ * @returns {Promise<Array<Object>>} List of genre objects.
+ */
+async function getAllGenres() {
+    const endpoint = '/genres/?page_size=25';
+    const data = await fetchJson(endpoint);
+    return data.results;
+}
+
 //endregion
 
 
@@ -319,6 +329,7 @@ async function getAllGenres() {
     const data = await fetchJson(endpoint);
     return data.results;
 }
+
 
 async function loadAll() {
   // Ecoute de tous les clics
