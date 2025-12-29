@@ -324,11 +324,7 @@ async function showDetails(movieId) {
   renderModal(details);
 }
 
-async function getAllGenres() {
-    const endpoint = '/genres/?page_size=25';
-    const data = await fetchJson(endpoint);
-    return data.results;
-}
+//endregion
 
 
 async function loadAll() {
@@ -416,6 +412,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+//region Utils
 function testCreateCard(movie, cardClass = '') {
   const image = createImageHtml(movie.image_url)
   return `<div class="col-12 col-sm-6 col-lg-4 ${cardClass}"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
@@ -433,3 +431,5 @@ function testCreateCard(movie, cardClass = '') {
     </div>
   </div>`;
 }
+
+//endregion
