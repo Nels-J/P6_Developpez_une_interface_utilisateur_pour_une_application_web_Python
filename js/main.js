@@ -1,7 +1,13 @@
+//region Globals
+
+/** Base URL for the REST API */
 const BASE_URL = 'http://localhost:8000/api/v1';
+
+/** Maximum number of movies displayed per section */
 const MAX_DISPLAY = 6;
 
 // OK - Récupération des éléments du DOM
+//endregion
 const DOM = {
   bestMovie: document.getElementById('best-movie'),
   category: document.getElementById('category-section'),
