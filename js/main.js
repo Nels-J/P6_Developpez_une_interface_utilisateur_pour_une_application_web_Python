@@ -120,8 +120,16 @@ async function getAllGenres() {
 //endregion
 
 
-// CONSTRUCTION
-// Crée un élément image ou un placeholder si l'URL est vide
+//region Rendering
+
+/**
+ * Creates an image element or a placeholder if the source is missing.
+ *
+ * @param {string} src - Image URL.
+ * @param {string} [alt] - Alternative text.
+ * @param {string} [cssClasses] - CSS classes to apply.
+ * @returns {HTMLElement}
+ */
 function createImageHtml(src, alt, cssClasses) {
   if (src) {
     const img = document.createElement('img');
@@ -134,16 +142,23 @@ function createImageHtml(src, alt, cssClasses) {
   }
   const placeholder = document.createElement('div');
   placeholder.className = 'bg-secondary text-white d-flex align-items-center justify-content-center';
+  // string 'Poster not available' in French
   placeholder.textContent = 'Image non disponible';
   return placeholder;
 }
 
-// OK - L'affichage du meilleur film
+/**
+ * Renders the best movie section.
+ *
+ * @param {Object|null} movieDatas - Movie details object.
+ * @returns {void}
+ */
 function renderBestMovie(movieDatas) {
   if (!DOM.bestMovie) return;
   DOM.bestMovie.innerHTML = '';
   if (!movieDatas) {
     const p = document.createElement('p');
+    // string 'No movie available' in French.
     p.textContent = 'Aucun film disponible.';
     DOM.bestMovie.appendChild(p);
     return;
@@ -152,16 +167,20 @@ function renderBestMovie(movieDatas) {
   const img = document.createElement('img');
   img.src = movieDatas.image_url || '';
   img.alt = movieDatas.title ? `Image de présentation du film ${movieDatas.title}` : 'Image de présentation';
+  // alt string 'Poster of the movie ${movieDatas.title}' | 'Poster of the movie with unknown title' in French
+  img.alt = movieDatas.title ? `Image de présentation du film ${movieDatas.title}` : 'Image de présentation du film au titre inconnu';
   img.className = 'img-fluid w-100 img-max-height mb-3 overflow-hidden';
   DOM.bestMovie.appendChild(img);
 
   const h3 = document.createElement('h3');
   h3.className = 'fw-bold text-start mb-2 overflow-hidden';
+  // If title unknown string 'Title unknown' in French.
   h3.textContent = movieDatas.title || 'Titre inconnu';
   DOM.bestMovie.appendChild(h3);
 
   const p = document.createElement('p');
   p.className = 'text-start text-justify mb-3 mb-sm-1 overflow-hidden';
+  // If description unknown string 'No description available' in French
   p.textContent = movieDatas.description || 'Aucune description disponible.';
   DOM.bestMovie.appendChild(p);
 
@@ -220,7 +239,12 @@ function createCard(movie) {
   return col;
 }
 
-
+/**
+ * Render a list of movie cards up to MAX_DISPLAY into a target container.
+ * @param {Array<object>} movies - Array of movie objects (expects at least ID, title, image_url).
+ * @param {string} targetElement - ID of the DOM element where cards will be injected.
+ * @returns {void} - Modifies the DOM directly; does not return any value.
+ */
 function renderSection(movies, targetElement) {
   const count = Math.min(movies.length, MAX_DISPLAY); // protection si moins d'éléments que MAX_DISPLAY
   const container = document.getElementById(targetElement)
@@ -239,6 +263,12 @@ function renderSection(movies, targetElement) {
 }
 
 
+/**
+ * Renders a category section with a title and movie cards.
+ * @param targetElement
+ * @param titleText
+ * @param movies
+ */
 function renderCategorySection(targetElement, titleText, movies) {
   if (!targetElement) return;
   targetElement.innerHTML = '';
@@ -246,6 +276,7 @@ function renderCategorySection(targetElement, titleText, movies) {
   container.className = 'border border-dark p-3 mb-4';
 
   const h3 = document.createElement('h3');
+  // If no title provided, default to 'Category' in French.
   h3.textContent = titleText || 'Catégorie';
   container.appendChild(h3);
 
@@ -255,6 +286,7 @@ function renderCategorySection(targetElement, titleText, movies) {
 
   if (!Array.isArray(movies) || movies.length === 0) {
     const p = document.createElement('p');
+    // string 'No movies for this category' in French.
     p.textContent = 'Aucun film pour cette catégorie.';
     container.appendChild(p);
     targetElement.appendChild(container);
@@ -271,7 +303,12 @@ function renderCategorySection(targetElement, titleText, movies) {
   targetElement.appendChild(container);
 }
 
-
+/**
+ * Displays a modal with detailed movie information.
+ *
+ * @param {Object|null} details - Movie details.
+ * @returns {void}
+ */
 function renderModal(details) {
   if (!DOM.modal) return;
   DOM.modal.innerHTML = '';
