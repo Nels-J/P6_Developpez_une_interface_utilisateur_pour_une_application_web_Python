@@ -10,31 +10,36 @@
 		<link rel="manifest" href="site.webmanifest">
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 		<link href="css/style.css" rel="stylesheet">
-		<title>JustStreamIt - Vidéo à la demande.</title>
+		<title>JustStreamIt - Vidéo à la demande.</title> <!-- JustStreamIt - Video On Demand -->
 	</head>
 
 	<body class="container-fluid px-4">
 		<main class="container">
-			<!-- Section - Bannière de la page. -->
+
+			<!-- Section - Page Banner. -->
 			<section class="border border-dark p-4" style="background-color: #61787F; height: 122px;">
 				<div class="d-flex flex-column flex-sm-row align-items-center justify-content-center justify-content-sm-start h-100">
 					<img src="./assets/logo.png"
 						 alt="logo JustStreamIt"
 						 class="mx-auto mx-sm-0"
 						 style="height: 94px; width: 127px;">
-					<h1 class="text-light ms-sm-4 mb-0 d-none d-sm-block">Vidéos à la demande - V2</h1>
+					<h1 class="text-light ms-sm-4 mb-0 d-none d-sm-block">Vidéos à la demande</h1>
+					<!-- Video On Demand -->
 				</div>
 			</section>
 
-			<!-- Section - Le meilleur film -->
+			<!-- Section - Best Movie -->
 			<section>
-      			<h2 class="text-center text-sm-start mt-4">Meilleur Film</h2>
-				<!-- Squelette pour le meilleur film -->
+				<h2 class="text-center text-sm-start mt-4">Meilleur Film</h2> <!-- Best Movie -->
+				<!-- Skeleton for best movie -->
 				<div id="best-movie" class="border border-dark border-5 p-3 text-center text-md-start mb-4">
+					<!-- Alternative text for the movie poster - Unavailable -->
 					<img src="assets/Placeholder.svg"
 						 alt="Texte alternatif de l'image de présentation du film - Indisponible"
 						 class="img-fluid w-100 img-max-height mb-3 overflow-hidden">
+					<!-- Movie title - Unavailable -->
 					<h3 class="fw-bold text-start mb-2 overflow-hidden">Titre du film - Indisponible</h3>
+					<!-- Movie description text - Unavailable -->
 					<p class="text-start text-justify mb-3 mb-sm-1 overflow-hidden">Texte d'introduction du film - non disponible.</p>
 					<div class="text-center text-sm-end overflow-hidden">
 						<button class="btn btn-danger rounded-pill px-4" data-id="MOVIE_ID">Détails</button>
@@ -43,58 +48,65 @@
 			</section>
 
 
-			<section>  <!-- Section - Les meilleurs films -->
-				<h2 class="text-center text-sm-start">Film les mieux notés</h2>
-				<div id='best-movies' class="row g-4"> <!-- gouttière de 4 pour espacer les colonnes -->
+			<section>  <!-- Section - Best Movies -->
+				<h2 class="text-center text-sm-start">Film les mieux notés</h2> <!-- Best Movies -->
+				<div id='best-movies' class="row g-4">
     			</div>
 				<div class="text-center d-block d-lg-none">
-					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button>
+					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button> <!-- See more -->
 				</div>
-
 			</section>
 
-			<!-- Section - Les meilleurs films par catégories -->
+			<!-- Section - The best movies by categories -->
 			<section>
 				<h2 class="text-center text-sm-start">Films à suspense les mieux notés</h2>
-				<div id='best-mistery' class="row g-4"> <!-- gouttière de 4 pour espacer les colonnes -->
+				<!-- The best mystery movies -->
+				<div id='best-mistery' class="row g-4">
     			</div>
 				<div class="text-center d-block d-lg-none">
-					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button>
+					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button> <!-- See more -->
 				</div>
 			</section>
 
+			<!-- Section - The best thriller movies -->
 			<section>
 				<h2 class="text-center text-sm-start">Films d'horreur les mieux notés</h2>
-				<div id='best-thriller' class="row g-4"> <!-- gouttière de 4 pour espacer les colonnes -->
+				<!-- The best thriller movies -->
+				<div id='best-thriller' class="row g-4">
     			</div>
 				<div class="text-center d-block d-lg-none">
-					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button>
+					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button> <!-- See more -->
 				</div>
 			</section>
 
+			<!-- Section - The best action movies -->
 			<section>
 				<h2 class="text-center text-sm-start">Films d'actions les mieux notés</h2>
-				<div id='best-actions' class="row g-4"> <!-- gouttière de 4 pour espacer les colonnes -->
+				<!-- The best action movies -->
+				<div id='best-actions' class="row g-4">
     			</div>
   				<div class="text-center d-block d-lg-none">
-					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button>
+					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button> <!-- See more -->
 				</div>
 			</section>
 
-
+			<!-- Section - The best movies in a user choice category -->
 			<section class="row film-category-dropdown" >
-				<h2 class="text-center text-sm-start mt-4">Autres :</h2>
+				<h2 class="text-center text-sm-start mt-4">Autres :</h2> <!-- Others: -->
                 <select class="col-md-12" name="category" id="categories">
-					<!--injecter ici -->
+					<!-- JS injection -->
                 </select>
+
                 <div class="col-md-12" id="category-section">
-					<!--	injecter ici via JS	-->
+					<!-- JS injection -->
 				</div>
+
 				<div class="text-center d-block d-lg-none">
-					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button>
+					<button type="button" class="btn btn-danger showMoreBtn">Voir plus</button> <!-- See more -->
 				</div>
             </section>
 
+			<!-- Modal for the details of a movie -->
 			<div class="modal hidden"
 				 id="movieModal"
 				 role="dialog"
@@ -102,15 +114,16 @@
 				 aria-labelledby="filmModalTitle"
 				 tabindex="-1">
 
-				<h3 id="filmModalTitle">Meilleur film</h3>
+				<h3 id="filmModalTitle">Détails du film</h3> <!-- Movie Details -->
 			</div>
 
 		</main>
-		<!-- Bootstrap avec Popper pour gérer dropdown et popover -->
+		<!-- Bootstrap with Popper to handle dropdown and popover -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
 				integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
 				crossorigin="anonymous">
 		</script>
+		<!-- Main JavaScript file -->
 		<script src="js/main.js"></script>
 	</body>
 </html>
