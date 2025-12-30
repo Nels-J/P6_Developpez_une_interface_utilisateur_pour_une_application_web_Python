@@ -248,6 +248,7 @@ function renderSection(movies, targetElement) {
   const count = Math.min(movies.length, MAX_DISPLAY); // protection si moins d'éléments que MAX_DISPLAY
   const container = document.getElementById(targetElement)
   let cardClass = ''
+  // fixme revoir cette partie de gestion des classes pour ne pas répéter le code
   for (let i = 0; i < count; i += 1) {
     const movie = movies[i];
     if (i > 1){
@@ -261,44 +262,30 @@ function renderSection(movies, targetElement) {
   }
 }
 
+function renderCategorySection(container, category, movies) {
+  if (!container) return;
 
-/**
- * Renders a category section with a title and movie cards.
- * @param targetElement
- * @param titleText
- * @param movies
- */
-function renderCategorySection(targetElement, titleText, movies) {
-  if (!targetElement) return;
-
-  targetElement.innerHTML = '';
-  const container = document.createElement('div');
-  const h3 = document.createElement('h3');
-  // If no title provided, default to 'Category' in French.
-  h3.textContent = titleText || 'Catégorie';
-  container.appendChild(h3);
-
-  const row = document.createElement('div');
-  row.className = 'row';
-  container.appendChild(row);
+  container.innerHTML = '';
 
   if (!Array.isArray(movies) || movies.length === 0) {
-    const p = document.createElement('p');
-    // string 'No movies for this category' in French.
-    p.textContent = 'Aucun film pour cette catégorie.';
-    container.appendChild(p);
-    targetElement.appendChild(container);
+    container.innerHTML = `<p>Aucun film pour la catégorie ${category}.</p>`;
     return;
   }
 
   const count = Math.min(movies.length, MAX_DISPLAY);
-  for (let i = 0; i < count; i++ ) {
-    const movie = movies[i];
-    const card = createCard(movie);
-    row.appendChild(card);
-  }
-
-  targetElement.appendChild(container);
+  let cardClass = '';
+    for (let i = 0; i < count; i++ ) {
+        const movie = movies[i];
+        // fixme revoir cette partie de gestion des classes pour ne pas répéter le code
+        if (i > 1){
+          cardClass = 'd-none d-lg-block d-md-block'
+        }
+        if (i > 3) {
+          cardClass = 'd-none d-lg-block'
+        }
+        const cardHTML = testCreateCard(movie, cardClass);
+        container.innerHTML += cardHTML;
+    }
 }
 
 /**
