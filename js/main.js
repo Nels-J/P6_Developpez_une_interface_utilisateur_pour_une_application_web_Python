@@ -270,10 +270,9 @@ function renderSection(movies, targetElement) {
  */
 function renderCategorySection(targetElement, titleText, movies) {
   if (!targetElement) return;
+
   targetElement.innerHTML = '';
   const container = document.createElement('div');
-  container.className = 'border border-dark p-3 mb-4';
-
   const h3 = document.createElement('h3');
   // If no title provided, default to 'Category' in French.
   h3.textContent = titleText || 'Catégorie';
@@ -293,7 +292,7 @@ function renderCategorySection(targetElement, titleText, movies) {
   }
 
   const count = Math.min(movies.length, MAX_DISPLAY);
-  for (let i = 0; i < count; i += 1) {
+  for (let i = 0; i < count; i++ ) {
     const movie = movies[i];
     const card = createCard(movie);
     row.appendChild(card);
@@ -429,18 +428,16 @@ async function loadAll() {
   renderSection(actionMovies, 'best-actions')
 
   const allGenres = await getAllGenres();
-  for (i=0; i < allGenres.length; i++){
+  for (let i = 0; i < allGenres.length; i++){
     document.getElementById("categories").innerHTML += `<option value="${allGenres[i].name}">${allGenres[i].name}</option>`;
   }
 
-  // on event change log name
+  // on event change log name of selected category
   document.getElementById("categories").addEventListener("change", function(event){
     const selectedCategory = getTopMoviesByCategory(event.target.value, MAX_DISPLAY);
     selectedCategory.then((selectedCategory) => {
-        renderCategorySection(DOM.category, '', selectedCategory);
+        renderCategorySection(DOM.category, event.target.value, selectedCategory);
     })
-    // console.log(selectedCategory);
-    // renderCategorySection(DOM.action, '', selectedCategory);
   });
 }
 
