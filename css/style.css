@@ -16,7 +16,6 @@ body {
   }
 }
 
-/* affichage des encarts de films */
 .imageWrapper {
   height: 423px;
   overflow: hidden;
@@ -35,7 +34,7 @@ body {
   position: relative;
 }
 
-/* Bandeau */
+/* Card image overlay */
 .overlay {
   position: absolute;
   width: 100%;
@@ -46,7 +45,6 @@ body {
   z-index: 1;
 }
 
-/* Titre dans le bandeau */
 .overlay .title {
     position: absolute;
     top: 10px;
@@ -55,14 +53,13 @@ body {
     color: #fff;
 }
 
-/* Bouton dans le bandeau */
 .overlay .detailBtn {
     position: absolute;
     bottom: 10px;
     right: 15px;
 }
 
-/* Affiche la modale */
+/* Modal styles */
 .modal {
   width: 100vw;
   height: 100vh;
@@ -73,7 +70,7 @@ body {
   z-index: 2;
 }
 
-/* Par défaut class hidden pour masquer la modale */
+/* Hide modal by default */
 .modal.hidden {
-  display: none !important; /* !important pour forcer le masquage de la modale */
+  display: none !important;
 }
