@@ -77,7 +77,7 @@ async function getBestMovie() {
  * @returns {Promise<Array<Object>>} List of movie objects.
  */
 async function getTopMovies(limit) {
-  limit++ // on prend un de plus pour enlever le meilleur film ensuite
+  limit += 1 // on prend un de plus pour enlever le meilleur film ensuite
   const endpoint = `/titles/?sort_by=-imdb_score,-votes&page_size=${limit}`;
   const data = await fetchJson(endpoint);
   return data.results.slice(1, limit); // on enlève le meilleur film position zéro
@@ -247,18 +247,10 @@ function createCard(movie) {
 function renderSection(movies, targetElement) {
   const count = Math.min(movies.length, MAX_DISPLAY); // protection si moins d'éléments que MAX_DISPLAY
   const container = document.getElementById(targetElement)
-  let cardClass = ''
-  // fixme revoir cette partie de gestion des classes pour ne pas répéter le code
-  for (let i = 0; i < count; i += 1) {
-    const movie = movies[i];
-    if (i > 1){
-      cardClass = 'd-none d-lg-block d-md-block'
-    }
-    if (i > 3) {
-      cardClass = 'd-none d-lg-block'
-    }
-    const cardHTML = testCreateCard(movie, cardClass);
-    container.innerHTML += cardHTML; // row.appendChild(card);
+
+  for (let index = 0; index < count; index += 1) {
+    const visibilityClasses = getResponsiveVisibilityClass(index);
+    container.innerHTML += testCreateCard(movies[index], visibilityClasses);
   }
 }
 
@@ -273,19 +265,10 @@ function renderCategorySection(container, category, movies) {
   }
 
   const count = Math.min(movies.length, MAX_DISPLAY);
-  let cardClass = '';
-    for (let i = 0; i < count; i++ ) {
-        const movie = movies[i];
-        // fixme revoir cette partie de gestion des classes pour ne pas répéter le code
-        if (i > 1){
-          cardClass = 'd-none d-lg-block d-md-block'
-        }
-        if (i > 3) {
-          cardClass = 'd-none d-lg-block'
-        }
-        const cardHTML = testCreateCard(movie, cardClass);
-        container.innerHTML += cardHTML;
-    }
+  for (let index = 0; index < count; index += 1) {
+    const visibilityClasses = getResponsiveVisibilityClass(index);
+    container.innerHTML += testCreateCard(movies[index], visibilityClasses);
+  }
 }
 
 /**
@@ -364,7 +347,6 @@ async function showDetails(movieId) {
  * @returns {Promise<void>}
  */
 async function loadAll() {
-  // Ecoute de tous les clics
   document.addEventListener("click", function (event) {
     if (event.target.classList.contains("detailBtn")) {
       showDetails(event.target.dataset.id);
@@ -415,8 +397,8 @@ async function loadAll() {
   renderSection(actionMovies, 'best-actions')
 
   const allGenres = await getAllGenres();
-  for (let i = 0; i < allGenres.length; i++){
-    document.getElementById("categories").innerHTML += `<option value="${allGenres[i].name}">${allGenres[i].name}</option>`;
+  for (let index = 0; index < allGenres.length; index += 1) {
+    document.getElementById("categories").innerHTML += `<option value="${allGenres[index].name}">${allGenres[index].name}</option>`;
   }
 
   // on event change log name of selected category
@@ -428,7 +410,7 @@ async function loadAll() {
   });
 }
 
-
+// Close modal when clicking outside of it
 document.addEventListener('click', function (e) {
   if (!DOM.modal) return;
   if (!DOM.modal.classList.contains('hidden')) {
@@ -439,8 +421,7 @@ document.addEventListener('click', function (e) {
   }
 });
 
-
-// OK - Initialisation au chargement du DOM
+// Initialize the app once the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
   loadAll().catch(function (err) { console.error('init error', err); });
 });
@@ -449,9 +430,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //region Utils
-function testCreateCard(movie, cardClass = '') {
+
+/**
+ * Generates an HTML string representing a movie card.
+ *
+ * @param {Object} movie - Movie data used to populate the card.
+ * @param {string} [visibilityClasses=''] - Optional additional CSS class(es) for the card container.
+ * @returns {string} HTML markup for the movie card.
+ */
+function testCreateCard(movie, visibilityClasses = '') {
   const image = createImageHtml(movie.image_url)
-  return `<div class="col-12 col-sm-6 col-lg-4 ${cardClass}"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
+  return `<div class="col-12 col-sm-6 col-lg-4 ${visibilityClasses}"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
     <div class="imageBox"> <!-- Ajout d'une div englobante pour le style -->
       <div class="imageWrapper"> <!-- Ajout d'une div pour gérer le ratio -->
         ${image.outerHTML}
@@ -465,6 +454,28 @@ function testCreateCard(movie, cardClass = '') {
 	  </div>
     </div>
   </div>`;
+}
+
+/**
+ * Returns the Bootstrap visibility classes for a movie card
+ * based on its position in the list.
+ *
+ * Visibility rules (MAX_DISPLAY = 6):
+ * - Mobile (< md): show 2 cards
+ * - Tablet (md): show 4 cards
+ * - Desktop (lg+): show 6 cards
+ *
+ * @param {number} index - Zero-based index of the card in the rendered list.
+ * @returns {string} Bootstrap utility classes controlling card visibility.
+ */
+function getResponsiveVisibilityClass(index) {
+  if (index <= 1) {
+    return '';
+  }
+  if (index <= 3) {
+    return 'd-none d-lg-block d-md-block';
+  }
+  return 'd-none d-lg-block';
 }
 
 //endregion
