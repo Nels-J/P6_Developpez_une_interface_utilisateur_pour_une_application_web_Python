@@ -77,10 +77,10 @@ async function getBestMovie() {
  * @returns {Promise<Array<Object>>} List of movie objects.
  */
 async function getTopMovies(limit) {
-  limit += 1 // on prend un de plus pour enlever le meilleur film ensuite
+  limit += 1 // Add 1 to exclude later the best movie to avoid duplication on display
   const endpoint = `/titles/?sort_by=-imdb_score,-votes&page_size=${limit}`;
   const data = await fetchJson(endpoint);
-  return data.results.slice(1, limit); // on enlève le meilleur film position zéro
+  return data.results.slice(1, limit); // Exclude the best movie
 }
 
 /**
@@ -166,7 +166,7 @@ function renderBestMovie(movieDatas) {
 
   const img = document.createElement('img');
   img.src = movieDatas.image_url || '';
-  // alt string 'Poster of the movie ${movieDatas.title}' | 'Poster of the movie with unknown title' in French
+  // alt string: 'Poster of the movie ${movieDatas.title}' | 'Poster of the movie with unknown title' in French
   img.alt = movieDatas.title ? `Image de présentation du film ${movieDatas.title}` : 'Image de présentation du film au titre inconnu';
   img.className = 'img-fluid w-100 img-max-height mb-3 overflow-hidden';
   DOM.bestMovie.appendChild(img);
@@ -183,7 +183,7 @@ function renderBestMovie(movieDatas) {
   p.textContent = movieDatas.description || 'Aucune description disponible.';
   DOM.bestMovie.appendChild(p);
 
-  // Bouton Détails
+  // Details button for best movie
   const divBtn = document.createElement('div');
   divBtn.className = 'text-center text-sm-end overflow-hidden';
 
@@ -201,42 +201,42 @@ function renderBestMovie(movieDatas) {
   DOM.bestMovie.appendChild(divBtn);
 }
 
-function createCard(movie) {
-  const col = document.createElement('div');
-  col.className = 'col-6 col-md-4 mb-3';
-
-  const card = document.createElement('div');
-  card.className = 'card h-100';
-
-  const imgContainer = document.createElement('div');
-  imgContainer.className = 'd-flex justify-content-center pt-2';
-  const img = createImageHtml(movie.image_url || '', movie.title || '', 'img-max-height');
-
-  imgContainer.appendChild(img);
-
-  const body = document.createElement('div');
-  body.className = 'card-body text-center';
-
-  const title = document.createElement('h5');
-  title.className = 'card-title';
-  title.textContent = movie.title || 'Titre';
-  body.appendChild(title);
-
-  const btn = document.createElement('button');
-  btn.className = 'btn btn-sm btn-secondary details-btn'; // secondary ou light
-  btn.dataset.id = movie.id || '';
-  btn.textContent = 'Détails';
-  btn.addEventListener('click', function () {
-    const id = this.dataset.id;
-    showDetails(id);
-  });
-  body.appendChild(btn);
-
-  card.appendChild(imgContainer);
-  card.appendChild(body);
-  col.appendChild(card);
-  return col;
-}
+// function createCard(movie) {
+//   const col = document.createElement('div');
+//   col.className = 'col-6 col-md-4 mb-3';
+//
+//   const card = document.createElement('div');
+//   card.className = 'card h-100';
+//
+//   const imgContainer = document.createElement('div');
+//   imgContainer.className = 'd-flex justify-content-center pt-2';
+//   const img = createImageHtml(movie.image_url || '', movie.title || '', 'img-max-height');
+//
+//   imgContainer.appendChild(img);
+//
+//   const body = document.createElement('div');
+//   body.className = 'card-body text-center';
+//
+//   const title = document.createElement('h5');
+//   title.className = 'card-title';
+//   title.textContent = movie.title || 'Titre';
+//   body.appendChild(title);
+//
+//   const btn = document.createElement('button');
+//   btn.className = 'btn btn-sm btn-secondary details-btn'; // secondary ou light
+//   btn.dataset.id = movie.id || '';
+//   btn.textContent = 'Détails';
+//   btn.addEventListener('click', function () {
+//     const id = this.dataset.id;
+//     showDetails(id);
+//   });
+//   body.appendChild(btn);
+//
+//   card.appendChild(imgContainer);
+//   card.appendChild(body);
+//   col.appendChild(card);
+//   return col;
+// }
 
 /**
  * Render a list of movie cards up to MAX_DISPLAY into a target container.
@@ -245,7 +245,7 @@ function createCard(movie) {
  * @returns {void} - Modifies the DOM directly; does not return any value.
  */
 function renderSection(movies, targetElement) {
-  const count = Math.min(movies.length, MAX_DISPLAY); // protection si moins d'éléments que MAX_DISPLAY
+  const count = Math.min(movies.length, MAX_DISPLAY); // Ensure we don't exceed MAX_DISPLAY
   const container = document.getElementById(targetElement)
 
   for (let index = 0; index < count; index += 1) {
@@ -260,11 +260,12 @@ function renderCategorySection(container, category, movies) {
   container.innerHTML = '';
 
   if (!Array.isArray(movies) || movies.length === 0) {
+    // 'No movies for category ${category}.' in French
     container.innerHTML = `<p>Aucun film pour la catégorie ${category}.</p>`;
     return;
   }
 
-  const count = Math.min(movies.length, MAX_DISPLAY);
+  const count = Math.min(movies.length, MAX_DISPLAY); // Ensure we don't exceed MAX_DISPLAY
   for (let index = 0; index < count; index += 1) {
     const visibilityClasses = getResponsiveVisibilityClass(index);
     container.innerHTML += testCreateCard(movies[index], visibilityClasses);
@@ -374,26 +375,19 @@ async function loadAll() {
     }
   });
 
-
-  // OK - Meilleur film
   const bestMovieDatas = await getBestMovie();
   renderBestMovie(bestMovieDatas);
 
-  // Top6 films
   const top = await getTopMovies(MAX_DISPLAY);
   renderSection(top, 'best-movies');
 
-  //Catégories
   const mysteryMovies = await getTopMoviesByCategory('Mystery', MAX_DISPLAY);
-  // renderCategorySection(DOM.mystery, 'Mystery', mysteryMovies);
   renderSection(mysteryMovies, 'best-mistery')
 
   const thrillerMovies = await getTopMoviesByCategory('Thriller', MAX_DISPLAY);
-  // renderCategorySection(DOM.thriller, 'Thriller', thrillerMovies);
   renderSection(thrillerMovies, 'best-thriller')
 
   const actionMovies = await getTopMoviesByCategory('Action', MAX_DISPLAY);
-  // renderCategorySection(DOM.action, 'Action', actionMovies);
   renderSection(actionMovies, 'best-actions')
 
   const allGenres = await getAllGenres();
@@ -401,7 +395,7 @@ async function loadAll() {
     document.getElementById("categories").innerHTML += `<option value="${allGenres[index].name}">${allGenres[index].name}</option>`;
   }
 
-  // on event change log name of selected category
+  // Event listener for category selection
   document.getElementById("categories").addEventListener("change", function(event){
     const selectedCategory = getTopMoviesByCategory(event.target.value, MAX_DISPLAY);
     selectedCategory.then((selectedCategory) => {
@@ -421,7 +415,7 @@ document.addEventListener('click', function (e) {
   }
 });
 
-// Initialize the app once the DOM is fully loaded
+// Initialize once the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
   loadAll().catch(function (err) { console.error('init error', err); });
 });
@@ -440,13 +434,10 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 function testCreateCard(movie, visibilityClasses = '') {
   const image = createImageHtml(movie.image_url)
-  return `<div class="col-12 col-sm-6 col-lg-4 ${visibilityClasses}"> <!-- 12 pour mobile, 6 pour tablettes, 4 pour desktop -->
-    <div class="imageBox"> <!-- Ajout d'une div englobante pour le style -->
-      <div class="imageWrapper"> <!-- Ajout d'une div pour gérer le ratio -->
+  return `<div class="col-12 col-sm-6 col-lg-4 ${visibilityClasses}"> <!-- Card container with responsive classes -->
+    <div class="imageBox"> <!-- Wrapper for image and overlay -->
+      <div class="imageWrapper"> <!-- Image container -->
         ${image.outerHTML}
-         
-<!--        <img src="${movie.image_url}" alt="Image 1"/>-->
-        <!-- injecter ici via JS les éléments provenant de l'API pour les top films -->
       </div>
       <div class="overlay">
 	    <h3 class="title">${movie.title}</h3>
