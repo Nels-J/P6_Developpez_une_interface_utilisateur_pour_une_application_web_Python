@@ -201,43 +201,6 @@ function renderBestMovie(movieDatas) {
   DOM.bestMovie.appendChild(divBtn);
 }
 
-// function createCard(movie) {
-//   const col = document.createElement('div');
-//   col.className = 'col-6 col-md-4 mb-3';
-//
-//   const card = document.createElement('div');
-//   card.className = 'card h-100';
-//
-//   const imgContainer = document.createElement('div');
-//   imgContainer.className = 'd-flex justify-content-center pt-2';
-//   const img = createImageHtml(movie.image_url || '', movie.title || '', 'img-max-height');
-//
-//   imgContainer.appendChild(img);
-//
-//   const body = document.createElement('div');
-//   body.className = 'card-body text-center';
-//
-//   const title = document.createElement('h5');
-//   title.className = 'card-title';
-//   title.textContent = movie.title || 'Titre';
-//   body.appendChild(title);
-//
-//   const btn = document.createElement('button');
-//   btn.className = 'btn btn-sm btn-secondary details-btn'; // secondary ou light
-//   btn.dataset.id = movie.id || '';
-//   btn.textContent = 'Détails';
-//   btn.addEventListener('click', function () {
-//     const id = this.dataset.id;
-//     showDetails(id);
-//   });
-//   body.appendChild(btn);
-//
-//   card.appendChild(imgContainer);
-//   card.appendChild(body);
-//   col.appendChild(card);
-//   return col;
-// }
-
 /**
  * Render a list of movie cards up to MAX_DISPLAY into a target container.
  * @param {Array<object>} movies - Array of movie objects (expects at least ID, title, image_url).
@@ -250,7 +213,7 @@ function renderSection(movies, targetElement) {
 
   for (let index = 0; index < count; index += 1) {
     const visibilityClasses = getResponsiveVisibilityClass(index);
-    container.innerHTML += testCreateCard(movies[index], visibilityClasses);
+    container.innerHTML += createCard(movies[index], visibilityClasses);
   }
 }
 
@@ -268,7 +231,7 @@ function renderCategorySection(container, category, movies) {
   const count = Math.min(movies.length, MAX_DISPLAY); // Ensure we don't exceed MAX_DISPLAY
   for (let index = 0; index < count; index += 1) {
     const visibilityClasses = getResponsiveVisibilityClass(index);
-    container.innerHTML += testCreateCard(movies[index], visibilityClasses);
+    container.innerHTML += createCard(movies[index], visibilityClasses);
   }
 }
 
@@ -432,7 +395,7 @@ document.addEventListener('DOMContentLoaded', function () {
  * @param {string} [visibilityClasses=''] - Optional additional CSS class(es) for the card container.
  * @returns {string} HTML markup for the movie card.
  */
-function testCreateCard(movie, visibilityClasses = '') {
+function createCard(movie, visibilityClasses = '') {
   const image = createImageHtml(movie.image_url)
   return `<div class="col-12 col-sm-6 col-lg-4 ${visibilityClasses}"> <!-- Card container with responsive classes -->
     <div class="imageBox"> <!-- Wrapper for image and overlay -->
