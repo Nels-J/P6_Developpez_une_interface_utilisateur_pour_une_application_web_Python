@@ -1,21 +1,17 @@
 > Student project:
 > P6_Developpez_une_interface_utilisateur_pour_une_application_web_Python
 ---
+# JustStreamIt - Interface Utilisateur pour une Application Web Python
+Ce projet permet aux utilisateurs de parcourir un catalogue de films via une interface web.
+Son catalogue est alimenté à partir d'une API.
 
-# Just Stream It - FrontEnd
+## Fonctionnalités
+- Affichage du meilleur film de la base de données.
+- Liste des films les mieux notés toutes catégories confondues et par catégories.
+- Détails complets pour chaque film via une fenêtre ouvrante (modale).
 
-## 🎨 Color Palette
-***(Source: color previews from [placehold.co](https://placehold.co/))***
-
-| Color Name      | Preview                                                     | HEX Code    |
-|-----------------|-------------------------------------------------------------|-------------|
-| White           | ![#FFFFFF](https://placehold.co/40x40/FFFFFF/000000?text=+) | `#FFFFFF`   |
-| Black           | ![#000000](https://placehold.co/40x40/000000/FFFFFF?text=+) | `#000000`   |
-| Dark Gray       | ![#2D2C2C](https://placehold.co/40x40/2D2C2C/FFFFFF?text=+) | `#2D2C2C`   |
-| Light Gray      | ![#D9D9D9](https://placehold.co/40x40/D9D9D9/000000?text=+) | `#D9D9D9`   |
-| Very Light Gray | ![#E7E7E7](https://placehold.co/40x40/E7E7E7/000000?text=+) | `#E7E7E7`   |
-| Bright Red      | ![#FA0B0B](https://placehold.co/40x40/FA0B0B/FFFFFF?text=+) | `#FA0B0B`   |
-| Dark Red        | ![#D62D2D](https://placehold.co/40x40/D62D2D/FFFFFF?text=+) | `#D62D2D`   |
-| Dark Blue       | ![#0277BD](https://placehold.co/40x40/0277BD/FFFFFF?text=+) | `#0277BD`   |
-| Light Blue      | ![#82CCEF](https://placehold.co/40x40/82CCEF/000000?text=+) | `#82CCEF`   |
-| Blue-Gray       | ![#61787F](https://placehold.co/40x40/61787F/FFFFFF?text=+) | `#61787F`   |
+## Technologies Utilisées
+- HTML5
+- CSS3
+- JavaScript (ES6)
+- Framework CSS : Bootstrap5 via CDN
